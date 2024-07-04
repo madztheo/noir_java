@@ -6,7 +6,7 @@ package noir;
 import java.util.HashMap;
 
 public class App {
-    public static String CIRCUIT_BYTECODE = "H4sIAAAAAAAA/+1Y207DMAz1Mna/sCGQEDww9gV127TpG7/Sdt1n8yuwomTLSgYSPZmGwNKUas1O7ONL7D0S0RMdpKPXF70G7YTFDkM4cKMgieMqDSuOOA/CrFAyiGWRKFYsldyEKooqFas0K7I0yDiOKt7KLNpq4C5Oxw8sQZ8FzUUHqLND3bbYbB5sLq702tMfw4uw3r85OOtYz0LvEV/s6ZzAGVnfmd/Prfco4/ckGONqw14tY2vjV40zux7ONlg/TJBQJwhfES7ZeuQncAWYP6TNfQdWEZQbyUWySbnKpSrLLGIO8yRPilBtq0KykmqHWeah2h0X5iVXQZ5UXXIELOELTB+HFdj6DuhQCIQj/vsebKHGOU3+vBYBX84ZeMAdEi7ofdk9xPvIqSui0A094N6QnwKKuoCMnshYGgFjCMmfudBr/Z41h3ZRA8d/bPDBuKkgP8WWMHo6u8mxXif0x7rJ2nC7m6wJWDWUA50Z1/hdwhexW7rsIqblKDHadtFjIH93Z+KvrZ4TYPwDY4aB/B0VPPQUgoyZKf2+KWRK2MvayIz+pxCIc2YecOd02VPIVDsL7CMvU8ikEVgo3Hu67Avc6ImMpWtgDCH5M41grZ9rCjEiwDEA/CuPAY3CfkpwmO5lAlnodUmnJ5C1tf/UBLKm7ycQF87ZJxD7cBTmQhOJLlALwidY7ehVg1t0x+wrqdrq9UDnKfhtp6wF0OYl0BcA/pwFzkc+ovg7VfCa8g4KyrarOR4AAA==";
+    public static String CIRCUIT_BYTECODE = "H4sIAAAAAAAA/9VY23KCMBDdcFGrbdU+9sn2CxIgEN76K4D42f2UTs002BBj2yknzrgzTCKDZ092N5sDjL7s6Xg907cxM76ZkU8zwQymi5vzsij6KutFLhqe1a2SvJBtqYQSUsl9pvK8V4Wq6raueC2KvBcHWecHAxzhOPLU4ER0buh4ALG4h+5UbDFM7FjEZkyseKAcnhwz40hf78ZRbJzuHJ9xwKT8szAzU5giJlyRJxSmWCJw/JBrTj1YLe/2UrTlvhJ9I1XX1bkQWVM2ZZupQ99KoaQ6YnZNpo7usqYTPW/KPqVx87ENvbFTHBa3+c4o4KYLFYhZANw5sMhCrXuOz5GXK6KxaK6oRjDgInO0IOyG0k1KY74cL9+JD66HIiK/8uHTrGKE3f+uTcT2Kog7My7pCgpCO7MVhHa6C5RkZooIvUG3FObkT7DrHxXjVOV0B4zfElhXwFyMNhxahSHjt6LbVGErCqPC7unGVNjKIY3CfQAWWah1P+BzFESFLQ1XtApD5uiR8CpMYw4qLCL/d5cIHGvgq7QAHC4nleRZehAFtjbjhq6gwLSTneMjuZGETlUxa+AaN4EKDd3I1uAaShye9tynIk4fBGfOqO2n7pJ4HNhzuzv9RmaYrzx+tp57cw9Xd3EL6/kPwp5mQ8xSD7eEzmO6sPgBuYwkcUznMdh64rNwuNncL/3W9krj1zVm3WfWf2Jzz/Vry9jIwrv0DLuA89ca+QRdyNsVphkAAA==";
 
     static {
         // This actually loads the shared object that we'll be creating.
@@ -19,8 +19,8 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Initializing witness...");
         HashMap<String, String> initial_witness = new HashMap<String, String>();
-        initial_witness.put("1", "0x2f");
-        initial_witness.put("2", "0x02");
+        initial_witness.put("0", "0x2f");
+        initial_witness.put("1", "0x02");
 
         System.out.println("Generating proof...");
         Proof proof = Noir.prove(CIRCUIT_BYTECODE, initial_witness);

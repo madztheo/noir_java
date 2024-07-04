@@ -1,8 +1,12 @@
 use jni::objects::{JClass, JObject, JString};
 use jni::sys::{jboolean, jobject};
 use jni::JNIEnv;
-use noir_rs::native_types::{Witness, WitnessMap};
-use noir_rs::FieldElement;
+use noir_rs::{
+    native_types::{Witness, WitnessMap},
+    prove::prove,
+    verify::verify,
+    FieldElement,
+};
 
 #[no_mangle]
 pub extern "system" fn Java_noir_Noir_prove<'local>(
@@ -45,14 +49,16 @@ pub extern "system" fn Java_noir_Noir_prove<'local>(
             .to_str()
             .expect("Failed to convert value to Rust string");
 
+        let int_value = i128::from_str_radix(value.trim_start_matches("0x"), 16)
+            .expect("Failed to parse value as integer");
+
         witness_map.insert(
             Witness(key.parse().expect("Failed to parse key")),
-            FieldElement::from_hex(value).expect("Failed to parse value"),
+            FieldElement::try_from(int_value).expect("Failed to parse value"),
         );
     }
 
-    let (proof, vk) =
-        noir_rs::prove(circuit_bytecode, witness_map).expect("Proof generation failed");
+    let (proof, vk) = prove(circuit_bytecode, witness_map).expect("Proof generation failed");
 
     let proof_str = hex::encode(proof);
     let vk_str = hex::encode(vk);
@@ -120,8 +126,7 @@ pub extern "system" fn Java_noir_Noir_verify<'local>(
     let proof = hex::decode(proof_str).expect("Failed to decode proof");
     let verification_key = hex::decode(vk_str).expect("Failed to decode verification key");
 
-    let verdict =
-        noir_rs::verify(circuit_bytecode, proof, verification_key).expect("Verification failed");
+    let verdict = verify(circuit_bytecode, proof, verification_key).expect("Verification failed");
 
     jboolean::from(verdict)
 }
