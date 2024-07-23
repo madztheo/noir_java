@@ -22,11 +22,13 @@ public class App {
         initial_witness.put("0", "0x2f");
         initial_witness.put("1", "0x02");
 
+        int num_points = Noir.setup_srs(CIRCUIT_BYTECODE);
+
         System.out.println("Generating proof...");
-        Proof proof = Noir.prove(CIRCUIT_BYTECODE, initial_witness);
+        Proof proof = Noir.prove(CIRCUIT_BYTECODE, initial_witness, "honk", String.valueOf(num_points));
 
         System.out.println("Verifying proof...");
-        boolean verdict = Noir.verify(CIRCUIT_BYTECODE, proof);
+        boolean verdict = Noir.verify(CIRCUIT_BYTECODE, proof, "honk", String.valueOf(num_points));
 
         assert verdict;
         System.out.println("Proof correct");
